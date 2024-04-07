@@ -1,0 +1,5 @@
+discord-api/.env
+discord-api/node_modules
+discord-client/node_modules
+.vscode/
+connection.session.sql

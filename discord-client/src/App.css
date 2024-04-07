@@ -1,0 +1,353 @@
+/* #region App */
+.App {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+.app-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+}
+.body-bottom {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    overflow-y: hidden;
+}
+
+.body {
+    height: 100%;
+    flex: 1;
+    z-index: 400;
+    overflow-y: scroll;
+}
+.sidebar {
+    height: 100%;
+    width: 15rem;
+    max-width: 30%;
+}
+
+.app-inputs {
+    background-color: rgb(30, 31, 34);
+    border: 0;
+    border-radius: .25rem;
+    padding: .25rem;
+    color: rgb(138, 144, 152);
+}
+input:focus {
+  outline: none;
+}
+
+.app-links {
+    color: rgb(6,154,229);
+    text-decoration: none;
+}
+.app-links:hover {
+    text-decoration: underline;
+}
+.app-links small {
+    color: rgb(6,154,229);
+    text-decoration: none;
+}
+.app-links:hover small {
+    text-decoration: underline;
+}
+
+.app-buttons {
+    background-color: rgb(88,101,242);
+    padding: .5rem 1rem;
+    border: none;
+    border-radius: .25rem;
+    white-space: nowrap;
+}
+.app-buttons:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+.app-buttons:active {
+    opacity: .6;
+}
+
+.app-nav-lines-h {
+    width: 2rem;
+    height: .1rem;
+    border: none;
+    border-bottom: .1rem solid rgb(48,49,54);
+}
+
+.app-nav-lines-v {
+    position: absolute;
+    left: -110%;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-right: .3rem solid rgb(242,243,245);
+    z-index: 999;
+    border-radius: .3rem;
+}
+
+.tooltip {
+    background-color: rgb(23, 23, 23);
+    padding: .5rem;
+    border-radius: .5rem;
+    left: 120%;
+    top: -25%;
+    width: max-content;
+    display: none;
+    position: absolute;
+    z-index: 110;
+}
+
+.user-icon-container {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+.user-icon {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+.user-status-icon-container {
+    border: 5px solid rgb(43,45,49);
+    background-color: rgb(43,45,49);
+    border-radius: 50%;
+    width: 9px;
+    height: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+
+    position: absolute;
+    top: 50%;
+    right: -5px;
+}
+.user-status-icon-container img {
+    width: 150px;
+    height: 20px;
+}
+/* #endregion App */
+
+/* #region Signs */
+.signs-body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.signs-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.sign-form-container {
+    padding: 2rem;
+    background-color: rgb(56,58,64);
+    width: 45rem;
+    height: 25rem;
+    border-radius: .25rem;
+    display: flex;
+    gap: 4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight:300;
+}
+.sign-form {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: .5rem;
+}
+.signs-dark-text {
+    color: rgb(181,186,193);
+    font-size: .75rem;
+    font-weight: 600;
+}
+.welcome-text {
+    text-align: center;
+}
+.signs-inputs {
+    height: 2rem;
+    color: white;
+}
+.signs-other-options {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-weight: 300;
+}
+
+
+.qr-code-img {
+    width: 12rem;
+}
+.signs-qrcode-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 35%;
+    font-weight: 300;
+    text-align: center;
+}
+
+.signs-result-box {
+    margin: 0;
+    color: red;
+    font-size: .75rem;
+    font-weight: 500;
+}
+.signs-warning-msg {
+    color: yellow;
+    font-size: .75rem;
+    font-weight: 200;
+}
+/* #endregion Signs */
+
+/* #region Pages */
+.dmpage {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: left;
+}
+
+.dmpage-msg-sender-picture {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.dmpage-dms {
+    display: flex;
+    gap: .25rem;
+    flex-direction: column;
+    align-items: left;
+    padding-bottom: 5rem;
+}
+.dmpage-message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.dmpage-message-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+.dmpage-msg-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.dmpage-msg-info {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-weight: 200;
+    margin: 0;
+}
+
+.dmpage-msg-body {
+    margin: 0;
+}
+.msg-input {
+    background-color: rgb(56,58,64);
+    width: 75vw;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, .5), -2px -2px 5px rgba(0, 0, 0, 0.3);
+    color: white;
+    position: absolute;
+    bottom: 0%;
+}
+.dm-delete-icon {
+    width: 1.5rem;
+    margin-right: 2rem;
+    display: none;
+}
+.dmpage-message:hover {
+    background-color: rgb(66, 69, 74);
+}
+.dmpage-message:hover .dm-delete-icon {
+    display: block;
+}
+.dm-delete-icon:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+/* #endregion Pages */
+.friends-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.add-friend-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 1rem;
+}
+.friends-input {
+    height: 2rem;
+    width: 80%;
+    padding: .2rem .5rem;
+    color: white;
+}
+
+.friends-list-friend {
+    width: 80%;
+    border: none;
+    border-bottom: .05rem solid rgb(124, 124, 133);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .1rem .5rem;
+}
+.friend-container {
+    height: 100%;
+    flex: 1;
+}
+.friend-delete-icon {
+    width: 2rem;
+}
+.friend-delete-icon:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+.friend-delete-icon:active {
+    opacity: 1;
+}
+.friend-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.friend-container:hover {
+    border-radius: .5rem;
+    border: none;
+    background-color: rgb(67,68,75);
+    cursor: pointer;
+}
+/* #region Friend */
+/* #endregion Friend */
+
+/* #region DmPage */
+/* #endregion DmPage */
