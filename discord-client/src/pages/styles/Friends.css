@@ -1,0 +1,48 @@
+.add-friend-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 1rem;
+}
+.friends-input {
+    height: 2rem;
+    width: 80%;
+    padding: .2rem .5rem;
+    color: white;
+}
+
+.friends-list-friend {
+    width: 80%;
+    border: none;
+    border-bottom: .05rem solid rgb(124, 124, 133);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .1rem .5rem;
+}
+.friend-container {
+    height: 100%;
+    flex: 1;
+}
+.friend-delete-icon {
+    width: 2rem;
+}
+.friend-delete-icon:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+.friend-delete-icon:active {
+    opacity: 1;
+}
+.friend-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.friend-container:hover {
+    border-radius: .5rem;
+    border: none;
+    background-color: rgb(67,68,75);
+    cursor: pointer;
+}

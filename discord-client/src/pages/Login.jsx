@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
+import './styles/Signs.css'
 
 function setCookie(name, value, days) {
   const date = new Date();

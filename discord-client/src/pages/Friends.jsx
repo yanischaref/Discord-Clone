@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { fetchData } from '../functions/fetchData';
-
+import './styles/Friends.css'
 
 const Friends = (props) => {
   const userId = props.userId
@@ -57,7 +57,7 @@ const Friends = (props) => {
     fetchData(`http://localhost:5000/get-pending-friends/${userId}`, createFriendsListJSX)
   }
 
-  const Blcked = () => {
+  const Blocked = () => {
     console.log("Not setup blcoked users yet, coming soon!")
   }
 
@@ -71,12 +71,27 @@ const Friends = (props) => {
   }, [])
 
   return (
-    <div className='body friends-body'>
-      <div className='add-friend-container'>
-        <input onChange={(event) => setInputValue(event.target.value)} placeholder='Friend Username..' className='app-inputs friends-input'></input>
-        <button onClick={addFriend} className='app-buttons'>Add Friend</button>
+    <div className='page friends-page'>
+      <header className='page-topnav topnav-header-me'>
+        <div className='page-topnav-me-friends-settings topnav-me-friends-settings'>
+          <p className='page-topnav-me-friends-settings topnav-friend-setting'>All</p>
+          <p className='page-topnav-me-friends-settings topnav-friend-setting'>Friends</p>
+          <p className='page-topnav-me-friends-settings topnav-friend-setting'>Pending</p>
+          <p className='page-topnav-me-friends-settings topnav-friend-setting'>Blocked</p>
+        </div>
+        <div className='topnav-me-friends-settings topnav-me-settings'>
+          <img alt='' className='page-topnav-icons top-nav-icons-inbox' src='/assets/icons/inbox.png'></img>
+          <img alt='' className='page-topnav-icons top-nav-icons-help' src='/assets/icons/help.png'></img>
+        </div>
+      </header>
+      
+      <div className='page-content friends-page-content'>
+        <div className='add-friend-container'>
+          <input onChange={(event) => setInputValue(event.target.value)} placeholder='Friend Username..' className='app-inputs friends-input'></input>
+          <button onClick={addFriend} className='app-buttons'>Add Friend</button>
+        </div>
+        {friendsListJSX}
       </div>
-      {friendsListJSX}
     </div>
   )
 }

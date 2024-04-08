@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-
 import { fetchData } from '../functions/fetchData'
 import { deleteCookie } from '../functions/deleteCookie'
+import './styles/HomeSideBar.css'
 
 const MeSidebar = (props) => {
     const navigate = useNavigate();
@@ -40,8 +40,8 @@ const MeSidebar = (props) => {
 
     useEffect(() => {
         if (userData.length === 0) return
-        const userInfoElmts = <div className='sidebar-user-info'>
-            <div className='sidebar-user-info-left'>
+        const userInfoElmts = <div className='sidebar-userinfo'>
+            <div className='sidebar-userinfo-left'>
                 <p>{userData.name}</p>
                 <div className='user-icon-container'>
                     <img className='user-icon' src={userData.profile_picture}></img>
@@ -63,22 +63,30 @@ const MeSidebar = (props) => {
         fetchData(`http://localhost:5000/get-friends/${userId}`, createSidebarFriendsJSX)
     }, [])
     return (
-        <nav className='sidebar home-side-bar'>
-            <div className='home-side-bar-part-1'>
-                <div onClick={() => navigate('/channel/me')} className='sidebar-option sidebar-option-friends'>
+        <nav className='sidebar'>
+            <div className='sidebar-header'>
+                <input autoComplete='off' spellCheck="false" className='app-inputs topnav-me-input' placeholder='Find or Start a conversation'></input>
+            </div>
+
+            <div className='sidebar-content'>
+                <div className='sidebar-option sidebar-option-friends' onClick={() => navigate('/channel/me')}>
                     <img alt='' src='/assets/icons/friends-icon.png'></img>
                     <p>Friends</p>
                 </div>
                 <div className='sidebar-category'>
-                    <p>Direct Messages</p>
-                    <p className='sidebar-category-action'>+</p>
-                    <p className='sidebar-category-tooltip tooltip'>Create DM</p>
-                </div>
-                <div className='sidebar-dm'>
-                    {sideBarFriendsJSX}
+                    <div className='sidebar-category-info'>
+                        <p>Direct Messages</p>
+                        <p className='sidebar-category-action'>+</p>
+                    </div>
+                    <div className='sidebar-category-options'>
+                        {sideBarFriendsJSX}
+                    </div>
                 </div>
             </div>
-            {userInfoJSX}
+
+            <div className='sidebar-userinfo'>
+                {userInfoJSX}
+            </div>
         </nav>
     )
 }

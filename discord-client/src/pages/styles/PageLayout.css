@@ -1,0 +1,66 @@
+.App {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+.navbar {
+    height: 100vh;
+    width: 4.5rem;
+}
+.app-body {
+    height: 100vh;
+    flex: 1;
+    display: flex;
+}
+.sidebar {
+    height: 100vh;
+    width: 15rem;
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+.sidebar-header {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+}
+.sidebar-content {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.sidebar-userinfo {
+    display: flex;
+    align-items: center;
+    padding: 0 .5rem;
+    width: calc(100% - 1rem);
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.page {
+    height: 100vh;
+    flex: 1;
+}
+.page-topnav {
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 1rem;
+}
+.page-content {
+    width: 100%;
+    flex: 1;
+}
+
+/* .page */
+/* .page-content */

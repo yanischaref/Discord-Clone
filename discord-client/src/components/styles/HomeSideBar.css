@@ -1,0 +1,17 @@
+.sidebar-option-friends img {
+    width: 1.25rem;
+    object-fit: cover;
+}
+
+.sidebar-userinfo-icons-container{
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+.sidebar-userinfo-icons {
+    width: 1.5rem;
+}
+.sidebar-userinfo-icons:hover {
+    opacity: .7;
+    cursor: pointer;
+}

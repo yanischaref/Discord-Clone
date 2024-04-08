@@ -2,17 +2,18 @@ import React, { useEffect } from 'react';
 import { getCookie } from './functions/getCookie'
 
 import './App.css'
+import './pages/styles/PageLayout.css'
+import './pages/styles/SideBar.css'
+import './pages/styles/TopNav.css'
+import './pages/styles/PageContent.css'
 
 import Friends from './pages/Friends';
-import DmPage from './pages/DmPage';
+import Dm from './pages/Dm';
 import Register from './pages/Register';
 import Login from './pages/Login';
 
 import NavBar from './components/NavBar'
-import MeSideBar from './components/MeSideBar';
-import FriendsTopNav from './components/FriendsTopNav';
-import DmTopNav from './components/DmTopNav';
-import './components/Components.css'
+import HomeSideBar from './components/HomeSideBar';
 
 import {
   createBrowserRouter,
@@ -45,14 +46,11 @@ export default function App() {
   const router = createBrowserRouter([
     {
       path: "/channel/me",
-      element: <div className={'App'}>
+      element: <div className='App'>
         <NavBar />
-        <div className='app-body friends'>
-          <FriendsTopNav userId={userId} />
-          <div className='body-bottom'>
-            <MeSideBar userId={userId} />
-            <Friends userId={userId} />
-          </div>
+        <div className='app-body friends-app-body'>
+          <HomeSideBar userId={userId} />
+          <Friends userId={userId} />
         </div>
       </div>
     },
@@ -66,14 +64,11 @@ export default function App() {
     },
     {
       path: "/channel/dm/:channelID",
-      element: <div className={'App'}>
+      element: <div className='App'>
         <NavBar />
         <div className='app-body friends'>
-          <DmTopNav userId={userId} />
-          <div className='body-bottom'>
-            <MeSideBar userId={userId} />
-            <DmPage userId={userId} />
-          </div>
+          <HomeSideBar userId={userId} />
+            <Dm userId={userId} />
         </div>
       </div>
     }
