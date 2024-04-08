@@ -7,13 +7,14 @@ import './pages/styles/SideBar.css'
 import './pages/styles/TopNav.css'
 import './pages/styles/PageContent.css'
 
-import Friends from './pages/Friends';
-import Dm from './pages/Dm';
-import Register from './pages/Register';
-import Login from './pages/Login';
+import NotFound from './pages/NotFound'
+import Friends from './pages/Friends'
+import Dm from './pages/Dm'
+import Register from './pages/Register'
+import Login from './pages/Login'
 
 import NavBar from './components/NavBar'
-import HomeSideBar from './components/HomeSideBar';
+import HomeSideBar from './components/HomeSideBar'
 
 import {
   createBrowserRouter,
@@ -71,6 +72,10 @@ export default function App() {
             <Dm userId={userId} />
         </div>
       </div>
+    },
+    {
+      path: "*",
+      element: <NotFound />
     }
   ])
 
