@@ -1,0 +1,43 @@
+.notification-container {
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    user-select: none;
+
+    height: 7rem;
+    width: 15rem;
+    overflow: hidden;
+
+    background-color: rgb(30,31,34);
+    border-radius: .25rem;
+    padding:  .5rem 2rem;
+
+    display: none;
+}
+
+.notification-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+}
+
+.notification-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .75rem;
+    font-weight: 300;
+}
+
+.notification-exit-icon {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+}
+.notification-exit-icon:hover {
+    cursor: pointer;
+    opacity: .7;
+}
+.notification-exit-icon:active {
+    color: black;
+}

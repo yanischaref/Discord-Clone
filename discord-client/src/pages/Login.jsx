@@ -47,11 +47,11 @@ const Login = (props) => {
               throw new Error(errorMessage);
             }
             const data = await response.json()
-            setCookie('access_token', data.user.user_id, 1);
+            setCookie('access_token', data.user.user_id, 7);
             setResultMsg('Connected Successfully!')
-            navigate('/channel/me')
+            window.location.pathname = '/channel/me'
           } catch (err) {
-            setResultMsg("err", err);
+            setResultMsg("wrong email or password");
           }
         };
 
@@ -69,7 +69,7 @@ const Login = (props) => {
                 <label><small className='signs-dark-text'>PASSWORD <span style={{color: 'red'}}>*</span></small></label>
                 <input className='app-inputs signs-inputs' type="password" name='password' onChange={handleChange}></input>
                 <Link className='app-links'><small>Forgot your password?</small></Link>
-                <p className='signs-result-box'>{resultMsg}</p>
+                <p className='signs-result-box' style={{color: resultMsg === 'wrong email or password' ? 'red' : 'green'}}>{resultMsg}</p>
                 <button className='app-buttons' type='submit'>Log In</button>
                 <div className='signs-other-options'>
                     <small>Already have an account?</small>

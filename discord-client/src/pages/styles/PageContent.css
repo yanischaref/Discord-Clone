@@ -18,8 +18,8 @@
 }
 
 .page-content-msg-sender-picture {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -30,27 +30,37 @@
     flex-direction: column;
     align-items: left;
     padding-bottom: 5rem;
+    margin-left: 0;
+    margin-bottom: 4rem;
+}
+.page-content-message {
+    margin-top: 1rem;
 }
 
-
-
-
-.page-content-message {
+.page-content-message,
+.page-content-short-message {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.page-content-message-content {
+.page-content-short-message {
+    padding-left: 1.15rem;
+    margin: 0;
+}
+.page-content-message-content,
+.page-content-short-message-content {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-left: 1rem;
-    margin-top: 1rem;
 }
 .page-content-msg-text {
     display: flex;
     flex-direction: column;
-    gap: 0;
+}
+.page-content-short-msg-text {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
 }
 .page-content-msg-info {
     display: flex;
@@ -59,23 +69,49 @@
     font-weight: 200;
     margin: 0;
 }
-
-.page-content-msg-body {
+.page-content-msg-info-name {
+    font-weight: 600;
+    font-size: .8rem;
     margin: 0;
 }
 
-.page-content-msg-delete-icon {
-    width: 1.5rem;
+.page-content-msg-info-date,
+.page-content-short-msg-info-date {
+    font-weight: 00;
+    font-size: .6rem;
+    margin: 0;
+}
+.page-content-short-msg-info-date {
+    color: rgb(54,57,62);
+}
+.page-content-short-message:hover .page-content-short-msg-info-date {
+    color: white;
+}
+.page-content-msg-body,
+.page-content-short-msg-body {
+    font-size: .75rem;
+    font-weight: 300;
+    margin: 0;
+}
+.page-content-msg-delete-icon,
+.page-content-short-msg-delete-icon {
+    width: 1rem;
+    margin: 0;
     margin-right: 2rem;
     display: none;
 }
-.page-content-message:hover {
+.page-content-message:hover,
+.page-content-short-message:hover {
     background-color: rgb(66, 69, 74);
 }
 .page-content-message:hover .page-content-msg-delete-icon {
     display: block;
 }
-.page-content-msg-delete-icon:hover {
+.page-content-short-message:hover .page-content-short-msg-delete-icon {
+    display: block;
+}
+.page-content-msg-delete-icon:hover,
+.page-content-short-msg-delete-icon:hover {
     cursor: pointer;
     opacity: .8;
 }

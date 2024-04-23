@@ -2,33 +2,17 @@ const express = require('express')
 const db = require('../db')
 const router = express.Router()
 
-router.delete('/delete-friend/:senderId/:receiverId', (req, res) => {
-    const { senderId, receiverId } = req.params
-    const userId =  Number(userID)
+router.delete('/delete-friend', (req, res) => {
+    const { userId, friendId } = req.body
+    const deleteQuery = 'DELETE FROM friends WHERE user_id IN(?, ?) AND friend_id IN(?, ?)'
 
-    const authQuery = `SELECT sender_id FROM dms WHERE dm_id = ?`
-    db.query(authQuery, [dmId], (error, authResults) => {
+    db.query(deleteQuery, [userId, friendId, userId, friendId], (error, deleteResults) => {
         if (error) {
-        console.error('Error adding dms', error);
-        res.status(500).json({ error: 'Internal server error' });
-        return;
-        }
-        if (userId !== authResults[0].sender_id){
-            console.error('No permession to delete dm!', error);
-            res.status(500).json({ error: 'No permession to delete dm!' });
-            return;
-        }
-
-        const deleteDmsQuery = `DELETE FROM dms WHERE dm_id = ?`
-        db.query(deleteDmsQuery, [dmId], (error, deleteResults) => {
-            if (error) {
-            console.error('Error adding dms', error);
+            console.error('Error deleting friend', error);
             res.status(500).json({ error: 'Internal server error' });
             return;
-            }
-            console.log("Dm deleted successfully!")
-            res.status(200).json({msg: "dms deleted successfully!"})
-        });
+        }
+        res.status(200).json({ msg: "Friend deleted successfully!" })
     });
 });
 

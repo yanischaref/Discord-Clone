@@ -1,25 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { fetchData } from '../functions/fetchData'
 import { deleteCookie } from '../functions/deleteCookie'
 import './styles/HomeSideBar.css'
+import { response } from 'express';
 
-const MeSidebar = (props) => {
+const MeSidebar = ({ userData }) => {
     const navigate = useNavigate();
-    const userId = props.userId
 
-    const [userData, setUserData] = useState([]);
     const [sideBarFriendsJSX, setSideBarFriendsJSX] = useState([]);
     const [userInfoJSX, setUserInfoJSX] = useState();
 
     // Function to create friend elements
-    const createSidebarFriendsJSX = (data) => {
-        const friends = data.friendsInfo.map(friend => {
+    const createSidebarFriendsJSX = (openedDmsData) => {
+        const friends = openedDmsData.map(friend => {
             return (
-                <div className='sidebar-option sidebar-dm-user' onClick={() => {
-                    navigate(`/channel/dm/${friend.user_id}`)
-                    window.location.reload();
-                }} key={friend.user_id}>
+                <div className='sidebar-option sidebar-dm-user' onClick={() => navigate(`/channel/dm/${friend.user_id}`)} key={friend.user_id}>
                     <div className='user-icon-container'>
                         <img alt='' className='user-icon' src={friend.profile_picture}></img>
                         <div className='user-status-icon-container'>
@@ -35,19 +30,21 @@ const MeSidebar = (props) => {
 
     const logout = () => {
         deleteCookie('access_token')
-        navigate('/login')
+        window.location.pathname = '/login'
     }
 
-    useEffect(() => {
-        if (userData.length === 0) return
+    const createSidebarUserInfoJSX = () => {
         const userInfoElmts = <div className='sidebar-userinfo'>
             <div className='sidebar-userinfo-left'>
-                <p>{userData.name}</p>
                 <div className='user-icon-container'>
                     <img className='user-icon' src={userData.profile_picture}></img>
                     <div className='user-status-icon-container'>
                         <img src={`/assets/icons/${userData.status}.png`}></img>
                     </div>
+                </div>
+                <div>
+                    <p className='sidebar-userinfo-name'>{userData.name}</p>
+                    <p className='sidebar-userinfo-username'>@{userData.username}</p>
                 </div>
             </div>
             <div className='sidebar-userinfo-icons-container'>
@@ -56,12 +53,30 @@ const MeSidebar = (props) => {
             </div>
         </div>
         setUserInfoJSX(userInfoElmts)
+    }
+
+    useEffect(() => {
+        try {
+            userData.username.length > 0 && createSidebarUserInfoJSX()
+        } catch (err) { }
     }, [userData])
 
     useEffect(() => {
-        fetchData(`http://localhost:5000/get-userdata/${userId}`, setUserData)
-        fetchData(`http://localhost:5000/get-friends/${userId}`, createSidebarFriendsJSX)
-    }, [])
+        console.log("hsfhsf")
+        // if (userData.user_id) {
+        //     fetch(`http://localhost:5000/get-opened-dms/${userData.user_id}`)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             console.log(data)
+        //             // data.forEach(user => {
+        //             //     // fetch(`http://localhost:5000/get-userdata/${user.user_id}`)
+        //             //     //     .then(response => response.json())
+        //             //     //     .then(queriedUserData => createSidebarFriendsJSX(queriedUserData))
+        //             //     console.log('looped userId: ', user.user_id)
+        //             // });
+        //         })
+        // }
+    }, [userData])
     return (
         <nav className='sidebar'>
             <div className='sidebar-header'>
@@ -90,5 +105,4 @@ const MeSidebar = (props) => {
         </nav>
     )
 }
-
 export default MeSidebar

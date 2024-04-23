@@ -5,6 +5,11 @@
     padding: 1rem;
     gap: 1rem;
 }
+.add-friend-result {
+    font-size: .75rem;
+    margin: 0;
+    font-weight: 300;
+}
 .friends-input {
     height: 2rem;
     width: 80%;
@@ -25,14 +30,17 @@
     height: 100%;
     flex: 1;
 }
-.friend-delete-icon {
+.friend-delete-icon,
+.friend-add-icon {
     width: 2rem;
 }
-.friend-delete-icon:hover {
+.friend-delete-icon:hover,
+.friend-add-icon:hover {
     cursor: pointer;
     opacity: .8;
 }
-.friend-delete-icon:active {
+.friend-delete-icon:active,
+.friend-add-icon:active {
     opacity: 1;
 }
 .friend-info {

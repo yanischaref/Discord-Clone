@@ -2,11 +2,22 @@
     width: 1.25rem;
     object-fit: cover;
 }
-
+.sidebar-userinfo{
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+}
 .sidebar-userinfo-icons-container{
     display: flex;
     gap: .5rem;
     align-items: center;
+}
+.sidebar-userinfo-name{
+    font-size: 1rem;
+    font-weight: 500;
+}
+.sidebar-userinfo-username{
+    font-size: .5rem;
+    font-weight: 300;
 }
 .sidebar-userinfo-icons {
     width: 1.5rem;
