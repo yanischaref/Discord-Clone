@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './styles/Friends.css'
 import io from 'socket.io-client';
+import UserIcon from '../components/UserIcon';
 
 const socket = io.connect('http://localhost:5000');
 
@@ -29,12 +30,7 @@ const Friends = (props) => {
             <div className='friends-list-friend' key={friend.user_id + 1}>
               <div className='friend-container' onClick={() => navigate(`/channel/dm/${friend.user_id}`)}>
                 <div className='friend-info'>
-                  <div className='user-icon-container'>
-                    <img alt='' className='user-icon' src={friend.profile_picture}></img>
-                    <div className='user-status-icon-container'>
-                      <img alt='' src={friend.status === 'online' ? '/assets/icons/online.png' : friend.status === 'idle' ? '/assets/icons/idle.png' : friend.status === 'donot-disturb' ? '/assets/icons/donot-disturb.png' : '/assets/icons/offline.png'}></img>
-                    </div>
-                  </div>
+                  <UserIcon userdata={friend} size={'35px'} isShowStatus={true} />
                   <p>{friend.name}</p>
                 </div>
               </div>
@@ -46,12 +42,7 @@ const Friends = (props) => {
             <div className='friends-list-friend' key={friend.user_id + 1}>
               <div className='friend-container' onClick={() => navigate(`/channel/dm/${friend.user_id}`)}>
                 <div className='friend-info'>
-                  <div className='user-icon-container'>
-                    <img alt='' className='user-icon' src={friend.profile_picture}></img>
-                    <div className='user-status-icon-container'>
-                      <img alt='' src={friend.status === 'online' ? '/assets/icons/online.png' : friend.status === 'idle' ? '/assets/icons/idle.png' : friend.status === 'donot-disturb' ? '/assets/icons/donot-disturb.png' : '/assets/icons/offline.png'}></img>
-                    </div>
-                  </div>
+                  <UserIcon userdata={friend} size={'35px'} isShowStatus={true} />
                   <div>
                     <p>{friend.name}</p>
                     <small><small>{Number(friend.sender_id) === Number(userId) ? 'Outgoing' : 'Incoming'}</small></small>
@@ -76,6 +67,20 @@ const Friends = (props) => {
       setAddFriendResultMsg('')
     }, lastedTime * 1000)
   }
+
+  const recieveNewFriend = (senderData) => {
+    console.log("recieving new friend!, ", senderData)
+    console.log("current tab: ", currentTab)
+    if (currentTab !== 'pending') {
+      showNotification(`${senderData.name} Wants to be friends!`, 'Friend request was received.')
+      return
+    }
+    setFriendsData(prevFriends => ([
+      ...prevFriends,
+      senderData
+    ]))
+  }
+
   const addFriend = () => {
     fetch(`http://localhost:5000/get-user-by-username/${inputValue}`)
       .then(response => response.json())
@@ -87,8 +92,10 @@ const Friends = (props) => {
             .then(response => response.json())
             .then(friendData => {
               socket.emit('addFriend', userData, friendData);
+
               var toSendFriendData = friendData
               toSendFriendData['sender_id'] = userId
+              toSendFriendData['state'] = 'pending'
               setFriendsData(prevFriends => ([
                 ...prevFriends,
                 toSendFriendData
@@ -128,7 +135,7 @@ const Friends = (props) => {
       .catch((err) => console.log("Error fetching user data: ", err))
   }
   const getFriends = (tab) => {
-    if (tab)setCurrentTab(tab)
+    if (tab) setCurrentTab(tab)
     else setCurrentTab('friends')
     fetch(`http://localhost:5000/get-friends/${userId}`)
       .then(response => response.json())
@@ -148,18 +155,13 @@ const Friends = (props) => {
   }, [friendsData])
 
   useEffect(() => {
-    getFriends()
+    if (friendsData.length === 0) {
+      getFriends()
+    }
 
-    socket.emit('login', userId);
     socket.on('recieveNewFriendData', (receiverData) => {
-      if (currentTab !== 'pending') {
-        showNotification(`${receiverData.name} Wants to be friends!`, 'Friend request was received.')
-        return
-      }
-      setFriendsData(prevFriends => ([
-        ...prevFriends,
-        receiverData
-      ]))
+      console.log("recieving new friend: ", receiverData)
+      recieveNewFriend(receiverData)
     })
 
     socket.on('recieveDeletedFriendId', (receiverId) => {

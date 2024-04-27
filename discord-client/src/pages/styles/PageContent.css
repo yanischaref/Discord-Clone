@@ -23,6 +23,12 @@
     object-fit: cover;
     border-radius: 50%;
 }
+.page-content-msg-sender-picture:hover {
+    cursor: pointer;
+}
+.page-content-msg-sender-picture:active {
+    opacity: .8;
+}
 
 .page-content-msgs {
     display: flex;

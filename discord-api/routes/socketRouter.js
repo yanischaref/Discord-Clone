@@ -66,22 +66,24 @@ function initializeSocket(server) {
     socket.on('addFriend', (senderData, receiverData,) => {
       const sender_id = senderData.user_id
       const receiver_id = receiverData.user_id
+      var toSendData = senderData
+      toSendData['state'] = 'pending'
 
       fetch('http://localhost:5000/add-friend', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json' // Specify the content type as JSON
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ senderId: sender_id, receiverId: receiver_id })
       })
         .then(response => response.json())
-        .then(data => console.log('friend added successfully from socket io: ', data))
         .catch(error => console.error('Error adding friend:', error))
 
       const receiverSocketId = users[receiver_id];
+
       if (receiverSocketId) {
         console.log("about to emit data to reciever.. ", receiverSocketId)
-        socket.to(receiverSocketId).emit('recieveNewFriendData', senderData);
+        socket.to(receiverSocketId).emit('recieveNewFriendData', toSendData);
       }
     });
 

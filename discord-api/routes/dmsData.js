@@ -20,29 +20,23 @@ router.get('/get-dm/:senderId/:receiverId', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
             return;
         }
-        const senderQuery = `SELECT * FROM users WHERE user_id = ?;`
-        const receiverQuery = `SELECT * FROM users WHERE user_id = ?;`
-        db.query(senderQuery, [senderId], (error, senderResults) => {
-            if (error) {
-                console.error('Error fetching direct messages:', error);
-                res.status(500).json({ error: 'Internal server error' });
-                return;
-            }
-            senderData = senderResults
-            db.query(receiverQuery, [receiverId], (error, receiverResults) => {
-                if (error) {
-                    console.error('Error fetching direct messages:', error);
-                    res.status(500).json({ error: 'Internal server error' });
-                    return;
-                }
-                receiverData = receiverResults
-                res.json({
-                    senderInfo: senderData,
-                    receiverInfo: receiverData,
-                    dms: results
-                });
+
+        fetch(`http://localhost:5000/get-userdata/${senderId}`)
+            .then(response => response.json())
+            .then(data => {
+                senderData = data
+                fetch(`http://localhost:5000/get-userdata/${receiverId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        receiverData = data
+                        res.json({
+                            senderInfo: senderData,
+                            receiverInfo: receiverData,
+                            dms: results
+                        });
+                    })
             })
-        })
+
     });
 });
 

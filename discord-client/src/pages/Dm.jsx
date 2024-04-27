@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import io from 'socket.io-client';
 import { formatDate, getTimeInRegion } from '../functions/formatDate';
 import './styles/Dm.css'
+import UserIcon from '../components/UserIcon';
 
 const socket = io.connect('http://localhost:5000');
 
@@ -18,16 +19,16 @@ const DmPage = (props) => {
   const receiverId = Number(channelID)
   const userId = props.userId
   const userData = props.userData
-
   const showNotification = props.showNotification
+  const showProfile = props.showProfile
 
   // Effect hook to create friend ui
   useEffect(() => {
     // Prevent when dms State is empty
     if (dms.length === 0) return
     const userInfoElmts = <div className='page-topnav-dm-info-container'>
-      <img alt='' className='page-topnav-dm-user-img' src={dms.receiverInfo[0].profile_picture}></img>
-      <p className='page-topnav-dm-user-name'>{dms.receiverInfo[0].name}</p>
+      <img alt='' className='page-topnav-dm-user-img' src={dms.receiverInfo.profile_picture}></img>
+      <p className='page-topnav-dm-user-name'>{dms.receiverInfo.name}</p>
     </div>
     setUserInfoJSX(userInfoElmts)
     if (dms.dms.length === 0) {
@@ -37,10 +38,10 @@ const DmPage = (props) => {
     }
 
     var dm_s = dms.dms.map((msg, index) => {
-      const sender = msg.sender_id === dms.senderInfo[0].user_id ? dms.senderInfo[0] : dms.receiverInfo[0]
+      const sender = msg.sender_id === dms.senderInfo.user_id ? dms.senderInfo : dms.receiverInfo
 
       if (dms.dms[index - 1]) {
-        if (dms.dms[index].sender_id === dms.dms[index-1].sender_id) {
+        if (dms.dms[index].sender_id === dms.dms[index - 1].sender_id) {
           const msgTimeMinutes1 = formatDate(dms.dms[index].sent_at).slice(14, 16)
           const msgTimeMinutes2 = formatDate(dms.dms[index - 1].sent_at).slice(14, 16)
           const msgDate1 = formatDate(dms.dms[index].sent_at).slice(0, 13)
@@ -66,7 +67,7 @@ const DmPage = (props) => {
       return (
         <div key={msg.dm_id + 2} className='page-content-message'>
           <div className='page-content-message-content'>
-            <img alt='' src={sender.profile_picture} className='page-content-msg-sender-picture'></img>
+            <UserIcon userdata={sender} size={'35px'} isShowStatus={false} showProfile={showProfile} />
             <div className='page-content-msg-text'>
               <div className='page-content-msg-info'>
                 <p className='page-content-msg-info-name'>{sender.name}</p>
@@ -140,7 +141,6 @@ const DmPage = (props) => {
       .catch((err) => console.log("Error fetching dms!"))
 
     // Listen for the connection event when component mounts
-    socket.emit('login', userId);
     socket.on('newMessage', (newMessage) => receiveNewDm(newMessage))
     socket.on('deletedMessageId', (toDeleteMessage) => {
       receiveToDeleteMessage(toDeleteMessage);
